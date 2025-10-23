@@ -3,6 +3,7 @@ import axios from "axios";
 import { ThemeToggle } from "./Component/ThemeToggle.jsx";
 import { CategorySelector } from "./Component/CategorySelector.jsx";
 import { NewList } from "./Component/NewList.jsx";
+import { Pagination } from "./Component/Pagination.jsx";
 
 function App() {
   const [news, setNews] = useState([]);
@@ -49,6 +50,19 @@ function App() {
     setCategory(newCategory);
     setCurrentPage(1);
   };
+
+  const handlePrev = () => {
+    if (currentPage > 1) {
+      setCurrentPage((prev) => prev - 1);
+    }
+  };
+
+  const handleNext = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage((prev) => prev + 1);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-base-200">
       <header className="bg-primary text-primary-content p-4">
@@ -77,6 +91,16 @@ function App() {
         {!loading && !error && news.length > 0 && (
           <>
             <NewList articles={news} />
+            {totalPages > 1 && (
+              <div>
+                <Pagination
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  onPrev={handlePrev}
+                  onNext={handleNext}
+                />
+              </div>
+            )}
           </>
         )}
       </main>

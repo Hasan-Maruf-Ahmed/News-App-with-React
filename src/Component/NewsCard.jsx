@@ -2,7 +2,7 @@ import React from "react";
 
 export const NewsCard = ({ article }) => {
   return (
-    <div className="card bg-base-100 shadow-lg">
+    <div className="card bg-base-100 shadow-lg border border-gray-500">
       {article.urlToImage && (
         <figure>
           <img src={article.urlToImage} alt={article.title} className="w-full h-48 object-cover"/>
