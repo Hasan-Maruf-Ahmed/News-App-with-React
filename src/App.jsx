@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { ThemeToggle } from "./Component/ThemeToggle.jsx";
+import { CategorySelector } from "./Component/CategorySelector.jsx";
 
 function App() {
   const [news, setNews] = useState([]);
@@ -42,6 +43,11 @@ function App() {
   useEffect(() => {
     fetchNews();
   }, [fetchNews]);
+
+  const handleCategoryChange = (newCategory) => {
+    setCategory(newCategory);
+    setCurrentPage(1);
+  };
   return (
     <div className="min-h-screen bg-base-200">
       <header className="bg-primary text-primary-content p-4">
@@ -50,7 +56,25 @@ function App() {
           <ThemeToggle />
         </div>
       </header>
-      <main className="container mx-auto p-4">Categories</main>
+      <main className="container mx-auto p-4">
+        <div className="mb-6">
+          <CategorySelector
+            category={category}
+            onCategoryChange={handleCategoryChange}
+          />
+        </div>
+        <div className="mb-6 text-center">
+          <p className="text-lg">Total Results: {totalResults}</p>
+        </div>
+        {loading && (
+          <div className="flex justify-center items-center">
+            <span className="loading loading-spinner loading-lg"></span>
+          </div>
+        )}
+        {error && <div className="alert alert-error">{error}</div>}
+        {!loading && !error && news.length === 0 && <p>No articles found.</p>}
+        {!loading && !error && news.length > 0 && ()}
+      </main>
     </div>
   );
 }
