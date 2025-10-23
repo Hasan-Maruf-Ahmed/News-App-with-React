@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { ThemeToggle } from "./Component/ThemeToggle.jsx";
 import { CategorySelector } from "./Component/CategorySelector.jsx";
+import { NewList } from "./Component/NewList.jsx";
 
 function App() {
   const [news, setNews] = useState([]);
@@ -73,7 +74,11 @@ function App() {
         )}
         {error && <div className="alert alert-error">{error}</div>}
         {!loading && !error && news.length === 0 && <p>No articles found.</p>}
-        {!loading && !error && news.length > 0 && ()}
+        {!loading && !error && news.length > 0 && (
+          <>
+            <NewList articles={news} />
+          </>
+        )}
       </main>
     </div>
   );
